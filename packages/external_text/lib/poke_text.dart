@@ -1,3 +1,4 @@
+library external_text;
 import 'package:flutter/material.dart';
 
 class PokeText extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:external_package/external_package.dart';
+import 'package:external_text/poke_text.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,6 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            PokeText(
+              'abc',
+              size: 48,
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
