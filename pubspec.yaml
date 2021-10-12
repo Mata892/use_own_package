@@ -24,8 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  external_package:
-    path: ./packages/external_package
   external_text:
     path: ./packages/external_text
 

@@ -51,7 +51,7 @@ packages:
     source: hosted
     version: "1.0.3"
   external_package:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/external_package"
       relative: true

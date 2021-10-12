@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  external_package:
+    path: ../external_package
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
