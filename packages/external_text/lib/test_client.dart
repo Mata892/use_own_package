@@ -5,4 +5,9 @@ class TestClient implements Client {
   void testMethod() {
     print('TestClient : testMethod');
   }
+
+  @override
+  String getToken() {
+    return 'token : TestClient';
+  }
 }

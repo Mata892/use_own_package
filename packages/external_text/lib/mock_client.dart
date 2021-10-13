@@ -5,4 +5,9 @@ class MockClient implements Client {
   void testMethod() {
     print('MockClient : testMethod');
   }
+
+  @override
+  String getToken() {
+    return 'token : MockClient';
+  }
 }
