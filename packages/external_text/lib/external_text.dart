@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:external_package/external_package.dart' as test;
 import 'package:test_package/poke_text.dart';
 import 'package:external_text/external_test.dart';
+import 'package:external_text/provider.dart';
 import 'package:test_package/test_package.dart' as tp;
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mock_web_server/mock_web_server.dart';
 import 'package:dio/dio.dart' as Dio;
+
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -20,106 +24,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ProviderScope(child: _MyHomePageState()),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends HookWidget {
   int _counter = 0;
 
-  final storage = new FlutterSecureStorage();
-  final server = MockWebServer(port: 9990);
-  final dio = Dio.Dio();
-  final headers = <String, String>{'content-type': 'application/json'};
-  Map<String?, String> values = {'name': '', 'pass': '', 'token': ''};
-  String? nameValue = '';
-  String? passValue = '';
-  String? tokenValue = '';
-
-  void initState() {
-    super.initState();
-    server.start();
-    // update();
-  }
-
-  void dispose() {
-    server.shutdown();
-    super.dispose();
-  }
-
-  void update() async {
-    setState(() async {
-      nameValue = await storage.read(key: 'name');
-      passValue = await storage.read(key: 'pass');
-      tokenValue = await storage.read(key: 'token');
-    });
-  }
-
-  void getValue(String key) async {
-    String? value = await storage.read(key: key);
-    print(value);
-  }
-
-  void getAllValue() async {
-    Map<String, String> allValues = await storage.readAll();
-    setState(() {
-      nameValue = allValues['name'];
-      passValue = allValues['pass'];
-      tokenValue = allValues['token'];
-    });
-    print(allValues);
-  }
-
-  void saveValue(String key, String value) async {
-    await storage.write(key: key, value: value);
-  }
-
-  void deleteValue(String key) async {
-    await storage.delete(key: key);
-  }
-
-  void deleteAllValue() async {
-    await storage.deleteAll();
-  }
-
-  void checkExist() async {
-    server.enqueue(httpCode: 200, body: 'c1l79IzCJ1Gt');
-
-    final result = await dio.get<String>(
-      'http://127.0.0.1:9990',
-      options: Dio.Options(
-        headers: headers,
-      ),
-    );
-
-    print(result);
-
-    saveValue('token', result.data!);
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // _counter++;
-      // _counter = Calculator().addOne(_counter);
-      _counter = test.Calculator().addState(_counter);
-    });
-  }
+  // final storage = new FlutterSecureStorage();
+  // final server = MockWebServer(port: 9990);
+  // final dio = Dio.Dio();
+  // final headers = <String, String>{'content-type': 'application/json'};
 
   @override
   Widget build(BuildContext context) {
+    final externalTest = useProvider(externalTestProvider);
+    final externalTestMethod = useProvider(externalTestProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('test'),
       ),
       body: Center(
         child: Column(
@@ -133,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$externalTest',
               style: Theme.of(context).textTheme.headline4,
             ),
             // tp.TestImage(),
@@ -146,19 +72,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     child: Text('保存'),
                     onPressed: () {
-                      saveValue('name', 'NameName');
+                      externalTestMethod.saveValue('name', 'NameName');
                     },
                   ),
                   ElevatedButton(
                     child: Text('読み込み'),
                     onPressed: () {
-                      getValue('name');
+                      externalTestMethod.getValue('name');
                     },
                   ),
                   ElevatedButton(
                     child: Text('削除'),
                     onPressed: () {
-                      deleteValue('name');
+                      externalTestMethod.deleteValue('name');
                     },
                   ),
                 ],
@@ -173,19 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     child: Text('保存'),
                     onPressed: () {
-                      saveValue('pass', 'Password');
+                      externalTestMethod.saveValue('pass', 'Password');
                     },
                   ),
                   ElevatedButton(
                     child: Text('読み込み'),
                     onPressed: () {
-                      getValue('pass');
+                      externalTestMethod.getValue('pass');
                     },
                   ),
                   ElevatedButton(
                     child: Text('削除'),
                     onPressed: () {
-                      deleteValue('pass');
+                      externalTestMethod.deleteValue('pass');
                     },
                   ),
                 ],
@@ -199,13 +125,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     child: Text('全削除'),
                     onPressed: () {
-                      deleteAllValue();
+                      externalTestMethod.deleteAllValue();
                     },
                   ),
                   ElevatedButton(
                     child: Text('全て読み込み'),
                     onPressed: () {
-                      getAllValue();
+                      externalTestMethod.getAllValue();
                     },
                   ),
                 ],
@@ -214,17 +140,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               child: Text('問い合わせ'),
               onPressed: () {
-                checkExist();
+                externalTestMethod.getToken();
               },
             ),
-            Text('name value is ${nameValue}'),
-            Text('pass value is ${passValue}'),
-            Text('token value is ${tokenValue}'),
+            Text('name value is ${externalTest.nameValue}'),
+            Text('pass value is ${externalTest.passValue}'),
+            Text('token value is ${externalTest.tokenValue}'),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {},
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

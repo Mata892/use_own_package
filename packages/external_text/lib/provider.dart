@@ -5,4 +5,4 @@ import 'package:external_text/external_test.dart';
 
 final testClientProvider = Provider.autoDispose((ref) => TestClient());
 final mockClientProvider = Provider.autoDispose((reg) => MockClient());
-final externalTestProvider = Provider.autoDispose((ref) => ExternalTest(client: ref.read(testClientProvider)));
+final externalTestProvider = StateNotifierProvider.autoDispose<ExternalTest, ExternalState>((ref) => ExternalTest(client: ref.read(testClientProvider)));

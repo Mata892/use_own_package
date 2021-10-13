@@ -14,7 +14,8 @@ dependencies:
   flutter_secure_storage: ^4.2.1
   mock_web_server: ^5.0.0-nullsafety.1
   dio: ^4.0.0
-  riverpod: ^0.14.0+3
+#  riverpod: ^0.14.0+3
+  hooks_riverpod: ^0.14.0+5
 
   external_package:
     path: ../external_package

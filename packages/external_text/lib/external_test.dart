@@ -1,15 +1,18 @@
 import 'package:external_text/client.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:riverpod/riverpod.dart';
 
-class ExternalTest {
-  ExternalTest({required this.client});
-
-  Client client;
-  final storage = FlutterSecureStorage();
-
+class ExternalState {
   String? nameValue = '';
   String? passValue = '';
   String? tokenValue = '';
+}
+
+class ExternalTest extends StateNotifier<ExternalState> {
+  ExternalTest({required this.client}) : super(ExternalState());
+
+  Client client;
+  final storage = FlutterSecureStorage();
 
   void execute() {
     client.testMethod();
@@ -22,9 +25,11 @@ class ExternalTest {
 
   void getAllValue() async {
     Map<String, String> allValues = await storage.readAll();
-    nameValue = allValues['name'];
-    passValue = allValues['pass'];
-    tokenValue = allValues['token'];
+    ExternalState value = ExternalState();
+    value.nameValue = allValues['name'];
+    value.passValue = allValues['pass'];
+    value.tokenValue = allValues['token'];
+    state = value;
     print(allValues);
   }
 
