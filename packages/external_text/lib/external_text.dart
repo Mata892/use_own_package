@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // import 'package:external_text/poke_text.dart';
 import 'package:external_package/external_package.dart' as test;
 import 'package:test_package/poke_text.dart';
+import 'package:external_text/external_test.dart';
 import 'package:test_package/test_package.dart' as tp;
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
