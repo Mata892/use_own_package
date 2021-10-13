@@ -28,6 +28,7 @@ class PokeText extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Poke-Solid',
                   fontFamilyFallback: ['Poke-Regular'],
+                  package: 'external_text',
                   fontSize: size,
                   letterSpacing: letterSpacing,
                   foreground: Paint()
@@ -42,6 +43,7 @@ class PokeText extends StatelessWidget {
           style: TextStyle(
             fontFamily: 'Poke-Solid',
             fontFamilyFallback: ['Poke-Regular'],
+            package: 'external_text',
             fontSize: size,
             letterSpacing: letterSpacing,
             color: textColor,

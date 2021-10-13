@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   external_package:
     dependency: "direct main"
     description:
@@ -62,11 +69,25 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_secure_storage:
+    dependency: "direct main"
+    description:
+      name: flutter_secure_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   matcher:
     dependency: transitive
     description:
@@ -81,6 +102,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  mock_web_server:
+    dependency: "direct main"
+    description:
+      name: mock_web_server
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.0-nullsafety.1"
   path:
     dependency: transitive
     description:
@@ -135,6 +163,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
+  test_package:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: develop
+      resolved-ref: "77b2c877f7bf7ed2b20b7fa1da34f3f2c689375a"
+      url: "git@github.com:Mata892/test_package.git"
+    source: git
+    version: "0.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -151,4 +188,4 @@ packages:
     version: "2.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=1.26.0-17.6.pre"

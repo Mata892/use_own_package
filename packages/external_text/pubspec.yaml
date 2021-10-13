@@ -11,8 +11,19 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_secure_storage: ^4.2.1
+  mock_web_server: ^5.0.0-nullsafety.1
+  dio: ^4.0.0
+
   external_package:
     path: ../external_package
+#  use_own_package:
+#    path: ../../../use_own_package
+
+  test_package:
+    git:
+      url: git@github.com:Mata892/test_package.git
+      ref: develop
 
 dev_dependencies:
   flutter_test:
@@ -24,17 +35,19 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
-  fonts:
-    - family: Poke-Solid
-      fonts:
-        - asset: ./assets/fonts/Pokemon Solid.ttf
-    - family: Poke-Hollow
-      fonts:
-        - asset: ./assets/fonts/Pokemon Hollow.ttf
-    - family: Poke-Regular
-      fonts:
-        - asset: ./assets/fonts/pkmn_r.ttf
-
+#  fonts:
+#    - family: Poke-Solid
+#      fonts:
+#        - asset: ./assets/fonts/Pokemon Solid.ttf
+#    - family: Poke-Hollow
+#      fonts:
+#        - asset: ./assets/fonts/Pokemon Hollow.ttf
+#    - family: Poke-Regular
+#      fonts:
+#        - asset: ./assets/fonts/pkmn_r.ttf
+#
+#  assets:
+#    - assets/images/pic.jpg
   # To add assets to your package, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
