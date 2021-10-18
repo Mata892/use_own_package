@@ -1,7 +1,6 @@
 library external_text;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:test_package/poke_text.dart';
 import 'package:external_text/support_state.dart';
@@ -44,13 +43,6 @@ class _MyHomePageState extends HookWidget {
               PokeText(
                 'abc',
                 size: 48,
-              ),
-              Text(
-                'You have pushed the button this many times:',
-              ),
-              Text(
-                '0',
-                style: Theme.of(context).textTheme.headline4,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -191,11 +183,6 @@ class _MyHomePageState extends HookWidget {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
