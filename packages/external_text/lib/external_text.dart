@@ -1,11 +1,14 @@
 library external_text;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:test_package/poke_text.dart';
 import 'package:external_text/provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
+import 'package:local_auth/local_auth.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -21,6 +24,18 @@ class MyApp extends StatelessWidget {
 }
 
 class _MyHomePageState extends HookWidget {
+  final LocalAuthentication auth = LocalAuthentication();
+
+  Future<void> _checkBiometrics() async {
+    late bool canCheckBiometrics;
+
+    try {
+      canCheckBiometrics = await auth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      canCheckBiometrics = false;
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final externalTest = useProvider(externalTestProvider);
