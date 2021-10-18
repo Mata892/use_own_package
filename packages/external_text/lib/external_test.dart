@@ -58,6 +58,7 @@ class ExternalTest extends StateNotifier<ExternalState> {
       supportState: isSupported ? SupportState.supported : SupportState.unsupported,
     );
   }
+
   Future<void> checkBiometrics() async {
     late bool canCheckBiometrics;
 
