@@ -1,5 +1,6 @@
 import 'package:external_text/client.dart';
 import 'package:external_text/external_state.dart';
+import 'package:external_text/support_state.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:riverpod/riverpod.dart';
@@ -51,6 +52,12 @@ class ExternalTest extends StateNotifier<ExternalState> {
   }
 
   // 生体認証関係
+  void isDeviceSupported() async {
+    bool isSupported = await auth.isDeviceSupported();
+    state = state.copyWith(
+      supportState: isSupported ? SupportState.supported : SupportState.unsupported,
+    );
+  }
   Future<void> checkBiometrics() async {
     late bool canCheckBiometrics;
 

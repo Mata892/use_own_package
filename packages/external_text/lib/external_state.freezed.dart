@@ -20,6 +20,7 @@ class _$ExternalStateTearOff {
       {String? nameValue = '',
       String? passValue = '',
       String? tokenValue = '',
+      SupportState supportState = SupportState.unknown,
       bool? canCheckBiometrics = false,
       List<BiometricType>? availableBiometrics = const [],
       String? authorized = 'Not Authrized',
@@ -28,6 +29,7 @@ class _$ExternalStateTearOff {
       nameValue: nameValue,
       passValue: passValue,
       tokenValue: tokenValue,
+      supportState: supportState,
       canCheckBiometrics: canCheckBiometrics,
       availableBiometrics: availableBiometrics,
       authorized: authorized,
@@ -44,6 +46,7 @@ mixin _$ExternalState {
   String? get nameValue => throw _privateConstructorUsedError;
   String? get passValue => throw _privateConstructorUsedError;
   String? get tokenValue => throw _privateConstructorUsedError;
+  SupportState get supportState => throw _privateConstructorUsedError;
   bool? get canCheckBiometrics => throw _privateConstructorUsedError;
   List<BiometricType>? get availableBiometrics =>
       throw _privateConstructorUsedError;
@@ -56,6 +59,7 @@ mixin _$ExternalState {
             String? nameValue,
             String? passValue,
             String? tokenValue,
+            SupportState supportState,
             bool? canCheckBiometrics,
             List<BiometricType>? availableBiometrics,
             String? authorized,
@@ -69,6 +73,7 @@ mixin _$ExternalState {
             String? nameValue,
             String? passValue,
             String? tokenValue,
+            SupportState supportState,
             bool? canCheckBiometrics,
             List<BiometricType>? availableBiometrics,
             String? authorized,
@@ -103,6 +108,7 @@ abstract class $ExternalStateCopyWith<$Res> {
       {String? nameValue,
       String? passValue,
       String? tokenValue,
+      SupportState supportState,
       bool? canCheckBiometrics,
       List<BiometricType>? availableBiometrics,
       String? authorized,
@@ -123,6 +129,7 @@ class _$ExternalStateCopyWithImpl<$Res>
     Object? nameValue = freezed,
     Object? passValue = freezed,
     Object? tokenValue = freezed,
+    Object? supportState = freezed,
     Object? canCheckBiometrics = freezed,
     Object? availableBiometrics = freezed,
     Object? authorized = freezed,
@@ -141,6 +148,10 @@ class _$ExternalStateCopyWithImpl<$Res>
           ? _value.tokenValue
           : tokenValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      supportState: supportState == freezed
+          ? _value.supportState
+          : supportState // ignore: cast_nullable_to_non_nullable
+              as SupportState,
       canCheckBiometrics: canCheckBiometrics == freezed
           ? _value.canCheckBiometrics
           : canCheckBiometrics // ignore: cast_nullable_to_non_nullable
@@ -172,6 +183,7 @@ abstract class $ExternalStateDataCopyWith<$Res>
       {String? nameValue,
       String? passValue,
       String? tokenValue,
+      SupportState supportState,
       bool? canCheckBiometrics,
       List<BiometricType>? availableBiometrics,
       String? authorized,
@@ -194,6 +206,7 @@ class _$ExternalStateDataCopyWithImpl<$Res>
     Object? nameValue = freezed,
     Object? passValue = freezed,
     Object? tokenValue = freezed,
+    Object? supportState = freezed,
     Object? canCheckBiometrics = freezed,
     Object? availableBiometrics = freezed,
     Object? authorized = freezed,
@@ -212,6 +225,10 @@ class _$ExternalStateDataCopyWithImpl<$Res>
           ? _value.tokenValue
           : tokenValue // ignore: cast_nullable_to_non_nullable
               as String?,
+      supportState: supportState == freezed
+          ? _value.supportState
+          : supportState // ignore: cast_nullable_to_non_nullable
+              as SupportState,
       canCheckBiometrics: canCheckBiometrics == freezed
           ? _value.canCheckBiometrics
           : canCheckBiometrics // ignore: cast_nullable_to_non_nullable
@@ -239,6 +256,7 @@ class _$ExternalStateData implements ExternalStateData {
       {this.nameValue = '',
       this.passValue = '',
       this.tokenValue = '',
+      this.supportState = SupportState.unknown,
       this.canCheckBiometrics = false,
       this.availableBiometrics = const [],
       this.authorized = 'Not Authrized',
@@ -253,6 +271,9 @@ class _$ExternalStateData implements ExternalStateData {
   @JsonKey(defaultValue: '')
   @override
   final String? tokenValue;
+  @JsonKey(defaultValue: SupportState.unknown)
+  @override
+  final SupportState supportState;
   @JsonKey(defaultValue: false)
   @override
   final bool? canCheckBiometrics;
@@ -268,7 +289,7 @@ class _$ExternalStateData implements ExternalStateData {
 
   @override
   String toString() {
-    return 'ExternalState.data(nameValue: $nameValue, passValue: $passValue, tokenValue: $tokenValue, canCheckBiometrics: $canCheckBiometrics, availableBiometrics: $availableBiometrics, authorized: $authorized, isAuthenticating: $isAuthenticating)';
+    return 'ExternalState.data(nameValue: $nameValue, passValue: $passValue, tokenValue: $tokenValue, supportState: $supportState, canCheckBiometrics: $canCheckBiometrics, availableBiometrics: $availableBiometrics, authorized: $authorized, isAuthenticating: $isAuthenticating)';
   }
 
   @override
@@ -284,6 +305,9 @@ class _$ExternalStateData implements ExternalStateData {
             (identical(other.tokenValue, tokenValue) ||
                 const DeepCollectionEquality()
                     .equals(other.tokenValue, tokenValue)) &&
+            (identical(other.supportState, supportState) ||
+                const DeepCollectionEquality()
+                    .equals(other.supportState, supportState)) &&
             (identical(other.canCheckBiometrics, canCheckBiometrics) ||
                 const DeepCollectionEquality()
                     .equals(other.canCheckBiometrics, canCheckBiometrics)) &&
@@ -304,6 +328,7 @@ class _$ExternalStateData implements ExternalStateData {
       const DeepCollectionEquality().hash(nameValue) ^
       const DeepCollectionEquality().hash(passValue) ^
       const DeepCollectionEquality().hash(tokenValue) ^
+      const DeepCollectionEquality().hash(supportState) ^
       const DeepCollectionEquality().hash(canCheckBiometrics) ^
       const DeepCollectionEquality().hash(availableBiometrics) ^
       const DeepCollectionEquality().hash(authorized) ^
@@ -321,14 +346,15 @@ class _$ExternalStateData implements ExternalStateData {
             String? nameValue,
             String? passValue,
             String? tokenValue,
+            SupportState supportState,
             bool? canCheckBiometrics,
             List<BiometricType>? availableBiometrics,
             String? authorized,
             bool? isAuthenticating)
         data,
   }) {
-    return data(nameValue, passValue, tokenValue, canCheckBiometrics,
-        availableBiometrics, authorized, isAuthenticating);
+    return data(nameValue, passValue, tokenValue, supportState,
+        canCheckBiometrics, availableBiometrics, authorized, isAuthenticating);
   }
 
   @override
@@ -338,6 +364,7 @@ class _$ExternalStateData implements ExternalStateData {
             String? nameValue,
             String? passValue,
             String? tokenValue,
+            SupportState supportState,
             bool? canCheckBiometrics,
             List<BiometricType>? availableBiometrics,
             String? authorized,
@@ -346,8 +373,15 @@ class _$ExternalStateData implements ExternalStateData {
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(nameValue, passValue, tokenValue, canCheckBiometrics,
-          availableBiometrics, authorized, isAuthenticating);
+      return data(
+          nameValue,
+          passValue,
+          tokenValue,
+          supportState,
+          canCheckBiometrics,
+          availableBiometrics,
+          authorized,
+          isAuthenticating);
     }
     return orElse();
   }
@@ -378,6 +412,7 @@ abstract class ExternalStateData implements ExternalState {
       {String? nameValue,
       String? passValue,
       String? tokenValue,
+      SupportState supportState,
       bool? canCheckBiometrics,
       List<BiometricType>? availableBiometrics,
       String? authorized,
@@ -389,6 +424,8 @@ abstract class ExternalStateData implements ExternalState {
   String? get passValue => throw _privateConstructorUsedError;
   @override
   String? get tokenValue => throw _privateConstructorUsedError;
+  @override
+  SupportState get supportState => throw _privateConstructorUsedError;
   @override
   bool? get canCheckBiometrics => throw _privateConstructorUsedError;
   @override
