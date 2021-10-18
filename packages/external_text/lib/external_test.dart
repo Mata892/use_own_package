@@ -67,4 +67,95 @@ class ExternalTest extends StateNotifier<ExternalState> {
       canCheckBiometrics: canCheckBiometrics,
     );
   }
+
+  Future<void> getAvailableBiometrics() async {
+    late List<BiometricType> availableBiometrics;
+
+    try {
+      availableBiometrics = await auth.getAvailableBiometrics();
+    } on Exception catch (e) {
+      availableBiometrics = <BiometricType>[];
+      print(e);
+    }
+
+    if (!mounted) return;
+
+    state = state.copyWith(
+      availableBiometrics: availableBiometrics,
+    );
+  }
+
+  Future<void> authenticate() async {
+    bool authenticated = false;
+
+    try {
+      state = state.copyWith(
+        isAuthenticating: true,
+        authorized: 'Authenticating',
+      );
+      authenticated = await auth.authenticate(
+        localizedReason: 'Let OS determine authentication method',
+        useErrorDialogs: true,
+        stickyAuth: true
+      );
+      state = state.copyWith(
+        isAuthenticating: false,
+      );
+    } on Exception catch (e) {
+      print(e);
+      state = state.copyWith(
+        isAuthenticating: false,
+        authorized: 'Error - ${e}',
+      );
+      return;
+    }
+
+    if (!mounted) return;
+
+    state = state.copyWith(
+      authorized: authenticated ? 'Authorized' : 'Not Authorized',
+    );
+  }
+
+  Future<void> authenticateWithBiometrics() async {
+    bool authenticated = false;
+
+    try {
+      state = state.copyWith(
+        isAuthenticating: true,
+        authorized: 'Authenticating',
+      );
+      authenticated = await auth.authenticate(
+        localizedReason: 'Scan your fingerprint (or face or whatever) to authenticate',
+        useErrorDialogs: true,
+        stickyAuth: true,
+        biometricOnly: true,
+      );
+      state = state.copyWith(
+        isAuthenticating: false,
+        authorized: 'Authenticating',
+      );
+    } on Exception catch (e) {
+      print(e);
+      state = state.copyWith(
+        isAuthenticating: false,
+        authorized: 'Error - ${e}',
+      );
+      return;
+    }
+
+    if (!mounted) return;
+
+    final String message = authenticated ? 'Authorized' : 'Not Authorized';
+    state = state.copyWith(
+      authorized: message,
+    );
+  }
+
+  void cancelAuthentication() async {
+    await auth.stopAuthentication();
+    state = state.copyWith(
+      isAuthenticating: false
+    );
+  }
 }

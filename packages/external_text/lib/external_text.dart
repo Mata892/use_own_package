@@ -24,18 +24,6 @@ class MyApp extends StatelessWidget {
 }
 
 class _MyHomePageState extends HookWidget {
-  final LocalAuthentication auth = LocalAuthentication();
-
-  Future<void> _checkBiometrics() async {
-    late bool canCheckBiometrics;
-
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      canCheckBiometrics = false;
-      print(e);
-    }
-  }
   @override
   Widget build(BuildContext context) {
     final externalTest = useProvider(externalTestProvider);
@@ -57,7 +45,7 @@ class _MyHomePageState extends HookWidget {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$externalTest',
+              '0',
               style: Theme.of(context).textTheme.headline4,
             ),
             Padding(
