@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: ProviderScope(child: _MyHomePageState()),
+      // home: ProviderScope(child: LoginView()),
     );
   }
 }
@@ -135,7 +136,8 @@ class _MyHomePageState extends HookWidget {
               else
                 Text('Thie device is not supported'),
               Divider(height: 10),
-              Text('Available biometrics: ${externalTest.availableBiometrics}\n'),
+              Text(
+                  'Available biometrics: ${externalTest.availableBiometrics}\n'),
               ElevatedButton(
                 child: const Text('Get available biometrics'),
                 onPressed: externalTestMethod.getAvailableBiometrics,
@@ -180,6 +182,63 @@ class _MyHomePageState extends HookWidget {
                         ),
                       ],
                     ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginView extends HookWidget {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    final externalTest = useProvider(externalTestProvider);
+    final externalTestMethod = useProvider(externalTestProvider.notifier);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const Text('メールアドレス'),
+              TextFormField(
+                enabled: true,
+                autovalidateMode: AutovalidateMode.always,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                }
+              ),
+              Divider(height: 10),
+              const Text('パスワード'),
+              TextFormField(
+                enabled: true,
+                autovalidateMode: AutovalidateMode.always,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                }
+              ),
+              Divider(height: 10),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    _formKey.currentState!.validate();
+                  },
+                  child: const Text('ログイン'),
+                ),
+              ),
             ],
           ),
         ),

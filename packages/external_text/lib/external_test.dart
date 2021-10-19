@@ -18,6 +18,12 @@ class ExternalTest extends StateNotifier<ExternalState> {
     client.testMethod();
   }
 
+  // 以下は全てロジックで実装した方がいい？（いわゆるViewModelでする処理ではない？）
+  // ログイン関係
+  void validate() {
+
+  }
+
   // KeyChain関係
   void getValue(String key) async {
     String? value = await storage.read(key: key);
