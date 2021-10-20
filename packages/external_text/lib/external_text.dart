@@ -11,13 +11,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: ProviderScope(child: _MyHomePageState()),
+        home: LoginView(),
       ),
-      home: ProviderScope(child: _MyHomePageState()),
-      // home: ProviderScope(child: LoginView()),
     );
   }
 }
@@ -193,6 +195,10 @@ class _MyHomePageState extends HookWidget {
 class LoginView extends HookWidget {
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController name = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController rePass = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final externalTest = useProvider(externalTestProvider);
@@ -205,41 +211,73 @@ class LoginView extends HookWidget {
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              const Text('メールアドレス'),
-              TextFormField(
-                enabled: true,
-                autovalidateMode: AutovalidateMode.always,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                }
-              ),
-              Divider(height: 10),
-              const Text('パスワード'),
-              TextFormField(
-                enabled: true,
-                autovalidateMode: AutovalidateMode.always,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                }
-              ),
-              Divider(height: 10),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _formKey.currentState!.validate();
-                  },
-                  child: const Text('ログイン'),
+          child: AutofillGroup(
+            child: Column(
+              children: [
+                const Text('メールアドレス'),
+                TextFormField(
+                    controller: name,
+                    enabled: true,
+                    autofillHints: [AutofillHints.name],
+                    keyboardType: TextInputType.text,
+                    autovalidateMode: AutovalidateMode.always,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    }),
+                Divider(height: 10),
+                const Text('パスワード'),
+                TextFormField(
+                    controller: pass,
+                    enabled: true,
+                    autofillHints: [AutofillHints.newPassword],
+                    keyboardType: TextInputType.visiblePassword,
+                    autovalidateMode: AutovalidateMode.always,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    }),
+                Divider(height: 10),
+                const Text('パスワード再入力'),
+                TextFormField(
+                    controller: rePass,
+                    enabled: true,
+                    autofillHints: [AutofillHints.newPassword],
+                    keyboardType: TextInputType.visiblePassword,
+                    autovalidateMode: AutovalidateMode.always,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      if (pass.text != rePass.text) {
+                        return 'Not same value';
+                      }
+                      return null;
+                    }),
+                Divider(height: 10),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        externalTestMethod.saveValue('name', name.text);
+                        externalTestMethod.saveValue('pass', pass.text);
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return _MyHomePageState();
+                        }));
+                      }
+                    },
+                    child: const Text('ログイン'),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
